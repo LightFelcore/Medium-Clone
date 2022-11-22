@@ -1,0 +1,42 @@
+/* Global Variables */
+@import 'src/styles.scss';
+
+.container {
+    .navbar-brand {
+        color: $brand-color;
+        font-weight: bold;
+        font-size: 25px;
+    
+        &:hover,
+        &:focus {
+            color: $brand-color;
+        }
+        
+    }
+
+    .navbar-nav {
+        flex-direction: row;
+
+        /* li */
+        .nav-item {
+            margin: 0 15px;
+
+            /* a */
+            .nav-link {
+                display: flex;
+                align-items: center;
+
+                i,
+                .user-pic {
+                    margin-right: 5px;
+                }
+    
+                .user-pic {
+                    width: 20px;
+                }
+            }
+        }
+
+    }
+    
+}
