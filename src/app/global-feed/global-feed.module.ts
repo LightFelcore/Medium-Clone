@@ -15,7 +15,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 /* Routes */
 const routes = [
-  { path: '', component: GlobalFeedComponent, CanActivate: [AuthGuard] }
+  { path: '', component: GlobalFeedComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({

@@ -26,12 +26,12 @@ import { LoginEffect } from 'src/app/auth/store/effects/login.effect';
 import { GetCurrentUserEffect } from 'src/app/auth/store/effects/get-current-user.effect';
 
 /* Guards */
-import { AuthGuard } from 'src/app/shared/guards/auth.guard';
+import { NotAuthGuard } from 'src/app/shared/guards/not-auth.guard';
 
 /* Routes */
 const routes = [
-  { path: 'register', component: RegisterComponent,/*  CanActivate: [AuthGuard] */ },
-  { path: 'login', component: LoginComponent, /* CanActivate: [AuthGuard] */ }
+  { path: 'register', component: RegisterComponent, canActivate: [NotAuthGuard] },
+  { path: 'login', component: LoginComponent, /* canActivate: [NotAuthGuard] */ }
 ]
 
 @NgModule({
@@ -54,6 +54,7 @@ const routes = [
   providers: [
     AuthService,
     PersistanceService,
+    NotAuthGuard
   ]
 })
 export class AuthModule { }

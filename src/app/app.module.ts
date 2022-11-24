@@ -20,7 +20,7 @@ import { AppComponent } from 'src/app/app.component';
 
 /* Services & Interceptors */
 import { PersistanceService } from 'src/app/shared/services/persistance.service';
-import { AuthInterceptorService } from 'src/app/shared/interceptors/auth-interceptor.service';;
+import { AuthInterceptorService } from 'src/app/shared/interceptors/auth-interceptor.service';
 
 @NgModule({
   declarations: [
