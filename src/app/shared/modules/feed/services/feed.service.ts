@@ -5,7 +5,7 @@ import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 
 /* Interfaces */
-import { GetFeedResponseInterface } from '../types/get-feed-response.interface';
+import { GetFeedResponseInterface } from 'src/app/shared/modules/feed/types/get-feed-response.interface';
 
 @Injectable({
   providedIn: 'root'

@@ -10,7 +10,7 @@ import { select, Store } from '@ngrx/store';
 import { loginAction, switchAuthPage } from 'src/app/auth/store/actions/login.action';
 
 /* Selectors */
-import { isSubmittingSelector, validationErrorsSelector } from 'src/app/auth/store/selectors';
+import { isSubmittingAuthSelector, validationErrorsAuthSelector } from 'src/app/auth/store/selectors';
 
 /* Interfaces */
 import { LoginRequestInterface } from 'src/app/auth/types/login-request.interface';
@@ -40,8 +40,8 @@ export class LoginComponent implements OnInit {
   }
 
   initializeValues(): void {
-    this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
-    this.backendErrors$ = this.store.pipe(select(validationErrorsSelector));
+    this.isSubmitting$ = this.store.pipe(select(isSubmittingAuthSelector));
+    this.backendErrors$ = this.store.pipe(select(validationErrorsAuthSelector));
   }
 
   initializeForm(): void {

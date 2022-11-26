@@ -1,2 +1,15 @@
-<p>global-feed works!</p>
-<app-feed></app-feed>
+<div class="home">
+    <app-banner></app-banner>
+    <div class="container">
+        <app-loading *ngIf="(isFeedLoading$ | async)"></app-loading>
+        <div *ngIf="!(isFeedLoading$ | async)" class="row">
+            <div class="col-md-9">
+                FEED TOGGLER
+                <app-feed [apiUrl]="apiUrl"></app-feed>
+            </div>
+            <div class="col-md-3">
+                POPULAR TAGS
+            </div>
+        </div>
+    </div>
+</div>

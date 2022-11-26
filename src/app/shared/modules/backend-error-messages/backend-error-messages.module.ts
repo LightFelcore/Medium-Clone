@@ -1,5 +1,8 @@
+/* Standard Modules */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+/* Custom Components */
 import { BackendErrorMessagesComponent } from 'src/app/shared/modules/backend-error-messages/components/backend-error-messages/backend-error-messages.component';
 
 @NgModule({

@@ -3,27 +3,27 @@ import { AuthStateInterface } from "src/app/auth/types/auth-state.interface";
 
 export const authFeatureSelector = createFeatureSelector<AuthStateInterface>('auth')
 
-export const isSubmittingSelector = createSelector(
+export const isSubmittingAuthSelector = createSelector(
     authFeatureSelector,
     (authState: AuthStateInterface) => authState.isSubmitting
 )
 
-export const validationErrorsSelector = createSelector(
+export const validationErrorsAuthSelector = createSelector(
     authFeatureSelector,
     (authState: AuthStateInterface) => authState.validationErrors
 )
 
-export const isLoggedInSelector = createSelector(
+export const isLoggedInAuthSelector = createSelector(
     authFeatureSelector,
     (authState: AuthStateInterface) => authState.isLoggedIn
 )
 
-export const isAnonymousSelector = createSelector(
+export const isAnonymousAuthSelector = createSelector(
     authFeatureSelector,
     (authState: AuthStateInterface) => authState.isLoggedIn === false
 )
 
-export const currentUserSelector = createSelector(
+export const currentUserAuthSelector = createSelector(
     authFeatureSelector,
     (authState: AuthStateInterface) => authState.currentUser
 )

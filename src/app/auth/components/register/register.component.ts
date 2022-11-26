@@ -10,10 +10,10 @@ import { select, Store } from '@ngrx/store';
 import { registerAction, switchAuthPage } from 'src/app/auth/store/actions/register.action';
 
 /* Selectors */
-import { isSubmittingSelector, validationErrorsSelector } from 'src/app/auth/store/selectors';
+import { isSubmittingAuthSelector, validationErrorsAuthSelector } from 'src/app/auth/store/selectors';
 
 /* Interfaces */
-import { RegisterRequestInterface } from '../../types/register-request.interface';
+import { RegisterRequestInterface } from 'src/app/auth/types/register-request.interface';
 import { BackendErrorsInterface } from 'src/app/shared/types/backend-errors.interface';
 
 @Component({
@@ -40,8 +40,8 @@ export class RegisterComponent implements OnInit {
   }
 
   initializeValues(): void {
-    this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
-    this.backendErrors$ = this.store.pipe(select(validationErrorsSelector));
+    this.isSubmitting$ = this.store.pipe(select(isSubmittingAuthSelector));
+    this.backendErrors$ = this.store.pipe(select(validationErrorsAuthSelector));
   }
 
   initializeForm(): void {

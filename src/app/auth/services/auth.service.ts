@@ -6,9 +6,9 @@ import { environment } from 'src/environments/environment.prod';
 
 /* Custom Interfaces */
 import { RegisterRequestInterface } from 'src/app/auth/types/register-request.interface';
-import { LoginRequestInterface } from '../types/login-request.interface';
+import { LoginRequestInterface } from 'src/app/auth/types/login-request.interface';
 import { CurrentUserInterface } from 'src/app/shared/types/current-user.interface';
-import { AuthResponseInterface } from '../types/auth-response.interface';
+import { AuthResponseInterface } from 'src/app/auth/types/auth-response.interface';
 
 @Injectable({
   providedIn: 'root'

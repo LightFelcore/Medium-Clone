@@ -9,7 +9,7 @@ import { CurrentUserInterface } from 'src/app/shared/types/current-user.interfac
 import { select, Store } from '@ngrx/store';
 
 /* Selectors */
-import { isLoggedInSelector, isAnonymousSelector, currentUserSelector } from 'src/app/auth/store/selectors';
+import { isLoggedInAuthSelector, isAnonymousAuthSelector, currentUserAuthSelector } from 'src/app/auth/store/selectors';
 
 @Component({
   selector: 'app-top-bar',
@@ -31,9 +31,9 @@ export class TopBarComponent implements OnInit {
   }
 
   initializeValues(){
-    this.isLoggedIn$ = this.store.pipe(select(isLoggedInSelector));
-    this.isAnonymous$ = this.store.pipe(select(isAnonymousSelector));
-    this.currentUser$ = this.store.pipe(select(currentUserSelector));
+    this.isLoggedIn$ = this.store.pipe(select(isLoggedInAuthSelector));
+    this.isAnonymous$ = this.store.pipe(select(isAnonymousAuthSelector));
+    this.currentUser$ = this.store.pipe(select(currentUserAuthSelector));
   }
 
 }

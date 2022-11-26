@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 /* Custom Actions */
-import { getCurrentUserAction } from './auth/store/actions/get-current-user.action';
+import { getCurrentUserAction } from 'src/app/auth/store/actions/get-current-user.action';
 
 @Component({
   selector: 'app-root',

@@ -2,12 +2,12 @@
 import { createAction, props } from "@ngrx/store";
 
 /* Interfaces */
-import { LoginRequestInterface } from "../../types/login-request.interface";
+import { LoginRequestInterface } from "src/app/auth/types/login-request.interface";
 import { CurrentUserInterface } from "src/app/shared/types/current-user.interface";
 import { BackendErrorsInterface } from "src/app/shared/types/backend-errors.interface";
 
 /* Types */
-import { ActionTypes } from "../actionTypes";
+import { ActionTypes } from "src/app/auth/store/actionTypes";
 
 export const loginAction = createAction(
     ActionTypes.LOGIN,

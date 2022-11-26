@@ -2,7 +2,7 @@
 import { createAction, props } from "@ngrx/store";
 
 /* Types */
-import { ActionTypes } from "../actionTypes";
+import { ActionTypes } from "src/app/auth/store/actionTypes";
 
 /* Interfaces */
 import { CurrentUserInterface } from "src/app/shared/types/current-user.interface";

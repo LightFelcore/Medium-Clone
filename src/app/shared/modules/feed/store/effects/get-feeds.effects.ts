@@ -24,11 +24,6 @@ export class GetFeedEffect {
     private feedService: FeedService
   ) { }
 
-
-    // 19.45
-
-
-
   getFeedEffect$ = createEffect(() => this.actions$.pipe(
       ofType(getFeedAction),
       exhaustMap(({url}) => {

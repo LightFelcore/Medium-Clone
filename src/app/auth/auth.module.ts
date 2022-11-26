@@ -13,14 +13,14 @@ import { BackendErrorMessagesModule } from 'src/app/shared/modules/backend-error
 import { RegisterComponent } from 'src/app/auth/components/register/register.component';
 import { LoginComponent } from 'src/app/auth/components/login/login.component';
 
-/* Auth Reducers */
+/* Custom Reducers */
 import { reducers } from 'src/app/auth/store/reducers';
 
-/* Auth Services */
+/* Services */
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { PersistanceService } from 'src/app/shared/services/persistance.service';
 
-/* Auth Effects */
+/* Custom Effects */
 import { RegisterEffect } from 'src/app/auth/store/effects/register.effect';
 import { LoginEffect } from 'src/app/auth/store/effects/login.effect';
 import { GetCurrentUserEffect } from 'src/app/auth/store/effects/get-current-user.effect';
@@ -31,7 +31,7 @@ import { NotAuthGuard } from 'src/app/shared/guards/not-auth.guard';
 /* Routes */
 const routes = [
   { path: 'register', component: RegisterComponent, canActivate: [NotAuthGuard] },
-  { path: 'login', component: LoginComponent, /* canActivate: [NotAuthGuard] */ }
+  { path: 'login', component: LoginComponent,  canActivate: [NotAuthGuard] }
 ]
 
 @NgModule({

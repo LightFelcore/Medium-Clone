@@ -13,7 +13,7 @@ import { EffectsModule } from '@ngrx/effects';
 /* Custom Modules */
 import { AuthModule } from 'src/app/auth/auth.module';
 import { TopBarModule } from 'src/app/shared/modules/top-bar/top-bar.module';
-import { GlobalFeedModule } from './global-feed/global-feed.module';
+import { GlobalFeedModule } from 'src/app/global-feed/global-feed.module';
 
 /* Standard Components */
 import { AppComponent } from 'src/app/app.component';
