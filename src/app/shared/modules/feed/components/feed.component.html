@@ -1,12 +1,5 @@
-<div class="error-messages-container">
-    <app-backend-error-messages
-    *ngIf="errors$ | async" 
-    [backendErrors]="errors$ | async">
-    </app-backend-error-messages>
-</div>
-
-<div *ngIf="feedData$ | async">
-    <div class="article-preview" *ngFor="let article of (feedData$ | async)?.articles">
+<div *ngIf="globalFeedState?.articles">
+    <div class="article-preview" *ngFor="let article of globalFeedState?.articles">
         <div class="article-meta">
             <a [routerLink]="['/profiles', article.author]">
                 <img [src]="article.author.image" />
@@ -25,8 +18,13 @@
             <h1>{{article.title}}</h1>
             <p>{{article.description}}</p>
             <span>Read more..</span>
-            HERE LIST OF TAGS
+            <app-tag-list [tags]="article.tagList"></app-tag-list>
         </a>
     </div>
-    PAGINATION
+    <app-pagination
+        [total]="globalFeedState.articlesCount"
+        [limit]="limit"
+        [url]="baseUrl"
+        [currentPage]="currentPageProps">
+    </app-pagination>
 </div>

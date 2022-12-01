@@ -1,17 +1,14 @@
 /* Standard Modules */
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-
-/* Store */
-import { select, Store } from '@ngrx/store';
-import { getFeedAction } from 'src/app/shared/modules/feed/store/actions/get-feed.actions';
+import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment.prod';
 
 /* Interfaces */
-import { BackendErrorsInterface } from 'src/app/shared/types/backend-errors.interface';
-import { GetFeedResponseInterface } from 'src/app/shared/modules/feed/types/get-feed-response.interface';
+import { GetGlobalFeedResponseInterface } from 'src/app/global-feed/types/get-global-feed-response.interface';
 
-/* Selectors */
-import { dataFeedSelector, errorsFeedSelector, isLoadingFeedSelector } from 'src/app/shared/modules/feed/store/selector';
+/* Serivces */
+import { SharedService } from 'src/app/shared/services/shared.service';
+
 
 @Component({
   selector: 'app-feed',
@@ -20,32 +17,24 @@ import { dataFeedSelector, errorsFeedSelector, isLoadingFeedSelector } from 'src
 })
 export class FeedComponent implements OnInit {
 
-  @Input('apiUrl') apiUrlProps: string;
+  globalFeedState: GetGlobalFeedResponseInterface;
 
-  isLoading$: Observable<boolean>
-  errors$: Observable<BackendErrorsInterface | null>
-  feedData$: Observable<GetFeedResponseInterface | null>
+  // Pagination component variables
+  baseUrl: string;
+  limit: number = environment.limit;
+  @Input('currentPage') currentPageProps: number;
 
   constructor(
-    private store: Store
+    private sharedService: SharedService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.initializeValues();
-    this.fetchData();
-  }
-  
-  ngAfterViewInit(): void {
-
-  }
-
-  fetchData(): void {
-    this.store.dispatch(getFeedAction({url: this.apiUrlProps}))
   }
 
   initializeValues(): void {
-    this.isLoading$ = this.store.pipe(select(isLoadingFeedSelector))
-    this.errors$ = this.store.pipe(select(errorsFeedSelector))
-    this.feedData$ = this.store.pipe(select(dataFeedSelector))
+    this.baseUrl = this.router.url.split('?')[0];
+    this.globalFeedState = this.sharedService.getGlobalFeedState();
   }
 }

@@ -20,6 +20,7 @@ import { AppComponent } from 'src/app/app.component';
 
 /* Services & Interceptors */
 import { PersistanceService } from 'src/app/shared/services/persistance.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
 import { AuthInterceptorService } from 'src/app/shared/interceptors/auth-interceptor.service';
 
 @NgModule({
@@ -34,7 +35,8 @@ import { AuthInterceptorService } from 'src/app/shared/interceptors/auth-interce
     AuthModule,
     TopBarModule,
     GlobalFeedModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({
+    }),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
@@ -43,6 +45,7 @@ import { AuthInterceptorService } from 'src/app/shared/interceptors/auth-interce
   ],
   providers: [
     PersistanceService,
+    SharedService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

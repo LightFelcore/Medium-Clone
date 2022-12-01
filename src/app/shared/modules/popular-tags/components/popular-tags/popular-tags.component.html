@@ -1,0 +1,18 @@
+<app-loading *ngIf="isLoading$ | async"></app-loading>
+
+<app-backend-error-messages 
+    *ngIf="errors$ | async"
+    [backendErrors]="errors$ | async">
+</app-backend-error-messages>
+
+<div class="sidebar" *ngIf="popularTagsData$ | async">
+    <p>Popular Tags</p>
+    <div class="tag-list">
+        <a class="tag-default tag-pill" 
+        [routerLink]="['/tags', tag]" 
+        *ngFor="let tag of (popularTagsData$ | async)">
+        
+        {{tag}}
+    </a>
+    </div>
+</div>

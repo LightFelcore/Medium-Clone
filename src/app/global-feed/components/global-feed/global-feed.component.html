@@ -1,14 +1,22 @@
 <div class="home">
     <app-banner></app-banner>
     <div class="container">
-        <app-loading *ngIf="(isFeedLoading$ | async)"></app-loading>
-        <div *ngIf="!(isFeedLoading$ | async)" class="row">
-            <div class="col-md-9">
-                FEED TOGGLER
-                <app-feed [apiUrl]="apiUrl"></app-feed>
+        <app-loading *ngIf="(isLoading$ | async)"></app-loading>
+        <div *ngIf="!(isLoading$ | async)">
+            <div class="error-messages-container">
+                <app-backend-error-messages
+                *ngIf="errors$ | async" 
+                [backendErrors]="errors$ | async">
+                </app-backend-error-messages>
             </div>
-            <div class="col-md-3">
-                POPULAR TAGS
+            <div class="row">
+                <div class="col-md-9">
+                    FEED TOGGLER
+                    <app-feed [currentPage]="currentPage"></app-feed>
+                </div>
+                <div class="col-md-3">
+                    <app-popular-tags></app-popular-tags>
+                </div>
             </div>
         </div>
     </div>

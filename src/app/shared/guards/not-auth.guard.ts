@@ -9,7 +9,7 @@ import { select, Store } from '@ngrx/store';
 import { isLoggedInAuthSelector } from 'src/app/auth/store/selectors';
 
 /* Interfaces */
-import { AppStateInterface } from 'src/app/shared/types/app-state-interface';
+import { AppStateInterface } from 'src/app/shared/types/app-state.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -21,24 +21,23 @@ export class NotAuthGuard implements CanActivate {
     private store: Store<AppStateInterface>
   ) { }
 
-    // For login and register routes
+  // For login and register routes
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
-      console.log('Not Auth Guard')
-      return this.store.pipe(
-        select(isLoggedInAuthSelector as any),
-        // isLoggedIn can be null, so we filter that out
-        filter((isLoggedIn) => isLoggedIn != null),
-        map((isLoggedIn: boolean) => {
-          if(isLoggedIn) {
-            this.route.navigate(['/']);
-            return false;
-          }
-          return true;
-        })
-      )
+    return this.store.pipe(
+      select(isLoggedInAuthSelector as any),
+      // isLoggedIn can be null, so we filter that out
+      filter((isLoggedIn) => isLoggedIn != null),
+      map((isLoggedIn: boolean) => {
+        if (isLoggedIn) {
+          this.route.navigate(['/']);
+          return false;
+        }
+        return true;
+      })
+    )
   }
-  
+
 }
