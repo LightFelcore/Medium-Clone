@@ -1,6 +1,6 @@
 /* Standard Modules */
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 /* Store */
 import { select, Store } from '@ngrx/store';
@@ -35,6 +35,12 @@ export class PopularTagsComponent implements OnInit {
   ngOnInit(): void {
     this.initializeValues();
     this.fetchData();
+  }
+
+  ngOnDestroy(): void {
+    this.isLoading$ = of(false)
+    this.errors$ = of(null);
+    this.popularTagsData$ = of(null);
   }
   
   fetchData(): void {

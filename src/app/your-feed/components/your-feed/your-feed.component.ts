@@ -1,6 +1,6 @@
 /* Standard Modules */
 import { Component, Input, OnInit } from '@angular/core';
-import { filter, map, Observable, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
@@ -12,32 +12,32 @@ import { select, Store } from '@ngrx/store';
 
 /* Interfaces */
 import { BackendErrorsInterface } from 'src/app/shared/types/backend-errors.interface';
-import { GetGlobalFeedResponseInterface } from 'src/app/global-feed/types/get-global-feed-response.interface';
+import { GetYourFeedResponseInterface } from 'src/app/your-feed/types/get-your-feed-response.interface';
 
 /* Selectors */
-import { dataGlobalFeedSelector, errorsGlobalFeedSelector, isLoadingGlobalFeedSelector } from 'src/app/global-feed/store/selectors';
+import { dataYourFeedSelector, errorsYourFeedSelector, isLoadingYourFeedSelector } from 'src/app/your-feed/store/selectors';
 
 /* Custom Actions */
-import { getGlobalFeedAction } from 'src/app/global-feed/store/actions/get-global-feed.actions';
+import { getYourFeedAction } from 'src/app/your-feed/store/actions/get-your-feed.actions';
 
 @Component({
-  selector: 'app-global-feed',
-  templateUrl: './global-feed.component.html',
-  styleUrls: ['./global-feed.component.scss']
+  selector: 'app-your-feed',
+  templateUrl: './your-feed.component.html',
+  styleUrls: ['./your-feed.component.scss']
 })
-export class GlobalFeedComponent implements OnInit {
+export class YourFeedComponent implements OnInit {
 
   queryParamsSubscription: Subscription;
 
   currentPage: number;
   limit: number = environment.limit;
   
-  apiArticlesURL: string = '/articles';
+  apiYourArticlesFeedURL: string = '/articles/feed';
   
   isLoading$: Observable<boolean>
   errors$: Observable<BackendErrorsInterface | null>
-  feedData$: Observable<GetGlobalFeedResponseInterface | null>
-  totalArticlesCount$: Observable<GetGlobalFeedResponseInterface | null>;
+  feedData$: Observable<GetYourFeedResponseInterface | null>
+  totalArticlesCount$: Observable<GetYourFeedResponseInterface | null>;
   
   constructor(
     private store: Store,
@@ -56,20 +56,20 @@ export class GlobalFeedComponent implements OnInit {
   fetchData(): void {
     // Pass query params to url for pagination
     const offset = (this.currentPage * this.limit) - this.limit;
-    const parsedUrl = parseUrl(this.apiArticlesURL)
+    const parsedUrl = parseUrl(this.apiYourArticlesFeedURL)
     const stringifiedParams = stringify({
       limit: this.limit,
       offset: offset,
       ...parsedUrl.query
     })
     const apiUrlWithQureyParams = `${parsedUrl.url}?${stringifiedParams}`;
-    this.store.dispatch(getGlobalFeedAction({ url: apiUrlWithQureyParams }))
+    this.store.dispatch(getYourFeedAction({ url: apiUrlWithQureyParams }))
   }
 
   initializeValues(): void {
-    this.isLoading$ = this.store.pipe(select(isLoadingGlobalFeedSelector))
-    this.errors$ = this.store.pipe(select(errorsGlobalFeedSelector))
-    this.feedData$ = this.store.pipe(select(dataGlobalFeedSelector))
+    this.isLoading$ = this.store.pipe(select(isLoadingYourFeedSelector))
+    this.errors$ = this.store.pipe(select(errorsYourFeedSelector))
+    this.feedData$ = this.store.pipe(select(dataYourFeedSelector))
   }
 
   initializeListeners(){

@@ -1,6 +1,6 @@
 <div class="home">
     <app-banner></app-banner>
-    global feed
+    tag-feed
     <div class="container">
         <app-loading *ngIf="(isLoading$ | async)"></app-loading>
         <div *ngIf="!(isLoading$ | async)">
@@ -12,8 +12,8 @@
             </div>
             <div class="row">
                 <div class="col-md-9">
-                    <app-feed-toggler></app-feed-toggler>
-                    <app-feed [stateKind]="'global-feed'" [currentPage]="currentPage"></app-feed>
+                    <app-feed-toggler [tagName]="tagName"></app-feed-toggler>
+                    <app-feed [stateKind]="'tag-feed'" [currentPage]="currentPage"></app-feed>
                 </div>
                 <div class="col-md-3">
                     <app-popular-tags></app-popular-tags>

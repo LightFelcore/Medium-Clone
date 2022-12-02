@@ -18,6 +18,7 @@ const popularTagsReducer = createReducer(
     initialState,
     on(getPopularTagsAction, (state): PopularTagsStateInterface => ({
         ...state,
+        data: null,
         isLoading: true
     })),
     on(getPopularTagsActionSuccess, (state, action): PopularTagsStateInterface => ({

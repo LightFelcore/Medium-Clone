@@ -1,5 +1,5 @@
-<div *ngIf="globalFeedState?.articles">
-    <div class="article-preview" *ngFor="let article of globalFeedState?.articles">
+<div *ngIf="feedState?.articles">
+    <div class="article-preview" *ngFor="let article of feedState?.articles">
         <div class="article-meta">
             <a [routerLink]="['/profiles', article.author]">
                 <img [src]="article.author.image" />
@@ -22,7 +22,7 @@
         </a>
     </div>
     <app-pagination
-        [total]="globalFeedState.articlesCount"
+        [total]="feedState.articlesCount"
         [limit]="limit"
         [url]="baseUrl"
         [currentPage]="currentPageProps">

@@ -1,6 +1,6 @@
 /* Standard Modules */
 import { Component, Input, OnInit } from '@angular/core';
-import { filter, map, Observable, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
@@ -12,33 +12,34 @@ import { select, Store } from '@ngrx/store';
 
 /* Interfaces */
 import { BackendErrorsInterface } from 'src/app/shared/types/backend-errors.interface';
-import { GetGlobalFeedResponseInterface } from 'src/app/global-feed/types/get-global-feed-response.interface';
+import { GetTagFeedResponseInterface } from 'src/app/tag-feed/types/get-tag-feed-response.interface';
 
 /* Selectors */
-import { dataGlobalFeedSelector, errorsGlobalFeedSelector, isLoadingGlobalFeedSelector } from 'src/app/global-feed/store/selectors';
+import { dataTagFeedSelector, errorsTagFeedSelector, isLoadingTagFeedSelector } from 'src/app/tag-feed/store/selectors';
 
 /* Custom Actions */
-import { getGlobalFeedAction } from 'src/app/global-feed/store/actions/get-global-feed.actions';
+import { getTagFeedAction } from 'src/app/tag-feed/store/actions/get-tag-feed.actions';
 
 @Component({
-  selector: 'app-global-feed',
-  templateUrl: './global-feed.component.html',
-  styleUrls: ['./global-feed.component.scss']
+  selector: 'app-tag-feed',
+  templateUrl: './tag-feed.component.html',
+  styleUrls: ['./tag-feed.component.scss']
 })
-export class GlobalFeedComponent implements OnInit {
+export class TagFeedComponent implements OnInit {
 
   queryParamsSubscription: Subscription;
 
   currentPage: number;
   limit: number = environment.limit;
-  
-  apiArticlesURL: string = '/articles';
-  
+
+  tagName: string;
+  apiTagArticlesFeedURL: string;
+
   isLoading$: Observable<boolean>
   errors$: Observable<BackendErrorsInterface | null>
-  feedData$: Observable<GetGlobalFeedResponseInterface | null>
-  totalArticlesCount$: Observable<GetGlobalFeedResponseInterface | null>;
-  
+  feedData$: Observable<GetTagFeedResponseInterface | null>
+  totalArticlesCount$: Observable<GetTagFeedResponseInterface | null>;
+
   constructor(
     private store: Store,
     private route: ActivatedRoute,
@@ -56,28 +57,38 @@ export class GlobalFeedComponent implements OnInit {
   fetchData(): void {
     // Pass query params to url for pagination
     const offset = (this.currentPage * this.limit) - this.limit;
-    const parsedUrl = parseUrl(this.apiArticlesURL)
+    const parsedUrl = parseUrl(this.apiTagArticlesFeedURL)
     const stringifiedParams = stringify({
       limit: this.limit,
       offset: offset,
       ...parsedUrl.query
     })
     const apiUrlWithQureyParams = `${parsedUrl.url}?${stringifiedParams}`;
-    this.store.dispatch(getGlobalFeedAction({ url: apiUrlWithQureyParams }))
+    this.store.dispatch(getTagFeedAction({ url: apiUrlWithQureyParams }))
   }
 
   initializeValues(): void {
-    this.isLoading$ = this.store.pipe(select(isLoadingGlobalFeedSelector))
-    this.errors$ = this.store.pipe(select(errorsGlobalFeedSelector))
-    this.feedData$ = this.store.pipe(select(dataGlobalFeedSelector))
+    this.tagName = this.route.snapshot.paramMap.get('slug') as string;
+    this.apiTagArticlesFeedURL = `/articles?tag=${this.tagName}`;
+    this.isLoading$ = this.store.pipe(select(isLoadingTagFeedSelector))
+    this.errors$ = this.store.pipe(select(errorsTagFeedSelector))
+    this.feedData$ = this.store.pipe(select(dataTagFeedSelector))
   }
 
-  initializeListeners(){
+  initializeListeners() {
     this.queryParamsSubscription = this.route.queryParams.subscribe((params: Params) => {
       this.currentPage = params['page'] || 1;
       this.fetchData();
     })
+
+    this.route.params.subscribe((params: Params) => {
+      this.tagName = params['slug'] as string
+      this.apiTagArticlesFeedURL = `/articles?tag=${this.tagName}`;
+      this.fetchData();
+    })
   }
 
-  
+
+
+
 }

@@ -12,7 +12,7 @@ import { PopularTagsModule } from 'src/app/shared/modules/popular-tags/popular-t
 import { FeedTogglerModule } from 'src/app/shared/modules/feed-toggler/feed-toggler.module';
 
 /* Custom Components */
-import { GlobalFeedComponent } from 'src/app/global-feed/components/global-feed/global-feed.component';
+import { YourFeedComponent } from 'src/app/your-feed/components/your-feed/your-feed.component';
 
 /* Guards */
 import { AuthGuard } from 'src/app/shared/guards/auth.guard';
@@ -22,28 +22,28 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 /* Custom Effects */
-import { GetGlobalFeedEffect } from 'src/app/global-feed/store/effects/get-global-feeds.effects';
+import { GetYourFeedEffect } from 'src/app/your-feed/store/effects/get-your-feeds.effects';
 
 /* Reducers */
-import { reducers } from 'src/app/global-feed/store/reducers';
+import { reducers } from 'src/app/your-feed/store/reducers';
 
 /* Services */
-import { GlobalFeedService } from 'src/app/global-feed/services/global-feed.service';
+import { YourFeedService } from 'src/app/your-feed/services/your-feed.service';
 
 /* Routes */
 const routes = [
-  { path: '', component: GlobalFeedComponent, canActivate: [AuthGuard] }
+  { path: 'feed', component: YourFeedComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({
   declarations: [
-    GlobalFeedComponent
+    YourFeedComponent
   ],
   imports: [
     CommonModule,
     FeedModule,
-    EffectsModule.forFeature([GetGlobalFeedEffect]),
-    StoreModule.forFeature('globalFeed', reducers),
+    EffectsModule.forFeature([GetYourFeedEffect]),
+    StoreModule.forFeature('yourFeed', reducers),
     RouterModule.forChild(routes),
     BannerModule,
     LoadingModule,
@@ -53,7 +53,7 @@ const routes = [
   ],
   providers: [
     AuthGuard,
-    GlobalFeedService
+    YourFeedService
   ]
 })
-export class GlobalFeedModule { }
+export class YourFeedModule { }
