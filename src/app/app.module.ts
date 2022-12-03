@@ -16,6 +16,9 @@ import { TopBarModule } from 'src/app/shared/modules/top-bar/top-bar.module';
 import { GlobalFeedModule } from 'src/app/global-feed/global-feed.module';
 import { YourFeedModule } from 'src/app/your-feed/your-feed.module';
 import { TagFeedModule } from 'src/app/tag-feed/tag-feed.module';
+import { ArticleModule } from 'src/app/article/article.module';
+import { CreateArticleModule } from 'src/app/create-article/create-article.module';
+import { EditArticleModule } from 'src/app/edit-article/edit-article.module';
 
 /* Standard Components */
 import { AppComponent } from 'src/app/app.component';
@@ -30,22 +33,25 @@ import { AuthInterceptorService } from 'src/app/shared/interceptors/auth-interce
     AppComponent
   ],
   imports: [
-    BrowserModule,
+    CreateArticleModule,
+    ArticleModule,
     AppRoutingModule,
+    AuthModule,
+    BrowserModule,
+    EditArticleModule,
+    EffectsModule.forRoot([]),
+    GlobalFeedModule,
     HttpClientModule,
     NgOptimizedImage,
-    AuthModule,
-    TopBarModule,
-    GlobalFeedModule,
-    YourFeedModule,
-    TagFeedModule,
     StoreModule.forRoot({
     }),
-    EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       autoPause: true, // Pauses recording actions and state changes when the extension window is not open
     }),
+    TopBarModule,
+    TagFeedModule,
+    YourFeedModule,
   ],
   providers: [
     PersistanceService,
